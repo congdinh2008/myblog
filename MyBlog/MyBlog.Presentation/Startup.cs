@@ -25,7 +25,7 @@ namespace MyBlog.Presentation
                 options.UseSqlServer(
                     Configuration.GetConnectionString("MyBlogConn")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<MyBlogDbContext>();
 
             services.AddControllersWithViews();
