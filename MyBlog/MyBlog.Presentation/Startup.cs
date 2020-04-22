@@ -26,6 +26,7 @@ namespace MyBlog.Presentation
                     Configuration.GetConnectionString("MyBlogConn")));
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MyBlogDbContext>();
 
             services.AddControllersWithViews();
@@ -34,7 +35,8 @@ namespace MyBlog.Presentation
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -62,6 +64,8 @@ namespace MyBlog.Presentation
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            DbInitializer.SeedData(userManager, roleManager);
         }
     }
 }
