@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using MyBlog.Models;
 using System;
 
-namespace MyBlog.Presentation.Data
+namespace MyBlog.DataAccessLayer.Data
 {
     public static class DbInitializer
     {

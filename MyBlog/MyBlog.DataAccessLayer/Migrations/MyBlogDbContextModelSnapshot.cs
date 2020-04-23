@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MyBlog.Presentation.Data;
+using MyBlog.DataAccessLayer.Data;
 
-namespace MyBlog.Presentation.Data.Migrations
+namespace MyBlog.DataAccessLayer.Migrations
 {
     [DbContext(typeof(MyBlogDbContext))]
-    [Migration("20200422191757_UpdateUsers")]
-    partial class UpdateUsers
+    partial class MyBlogDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,7 +154,7 @@ namespace MyBlog.Presentation.Data.Migrations
                     b.ToTable("UserTokens");
                 });
 
-            modelBuilder.Entity("MyBlog.Presentation.Data.User", b =>
+            modelBuilder.Entity("MyBlog.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -278,7 +276,7 @@ namespace MyBlog.Presentation.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("MyBlog.Presentation.Data.User", null)
+                    b.HasOne("MyBlog.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -287,7 +285,7 @@ namespace MyBlog.Presentation.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("MyBlog.Presentation.Data.User", null)
+                    b.HasOne("MyBlog.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -302,7 +300,7 @@ namespace MyBlog.Presentation.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyBlog.Presentation.Data.User", null)
+                    b.HasOne("MyBlog.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -311,7 +309,7 @@ namespace MyBlog.Presentation.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("MyBlog.Presentation.Data.User", null)
+                    b.HasOne("MyBlog.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
