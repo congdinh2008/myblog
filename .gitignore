@@ -7,3 +7,9 @@
 /MyBlog/MyBlog.Presentation/bin/Debug/netcoreapp5.0
 /MyBlog/MyBlog.Presentation/obj
 /MyBlog/MyBlog.Presentation/bin/Debug/netcoreapp3.1
+/MyBlog/MyBlog.BusinessLogicLayer/bin/Debug/net5.0
+/MyBlog/MyBlog.BusinessLogicLayer/obj
+/MyBlog/MyBlog.DataAccessLayer/bin/Debug/net5.0
+/MyBlog/MyBlog.DataAccessLayer/obj
+/MyBlog/MyBlog.Models/bin/Debug/net5.0
+/MyBlog/MyBlog.Models/obj
