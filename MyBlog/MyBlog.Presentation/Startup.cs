@@ -5,7 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyBlog.BusinessLogicLayer.CategoryServices;
+using MyBlog.BusinessLogicLayer.PostServices;
+using MyBlog.BusinessLogicLayer.TagServices;
 using MyBlog.DataAccessLayer.Data;
+using MyBlog.DataAccessLayer.Infrastructure;
 using MyBlog.Models;
 
 namespace MyBlog.Presentation
@@ -33,6 +37,14 @@ namespace MyBlog.Presentation
             services.AddControllersWithViews();
 
             services.AddRazorPages();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IGenericRepository<Category>, GenericRepository<Category>>();
+            services.AddScoped<ICategoryServices, CategoryServices>();
+            services.AddScoped<IGenericRepository<Post>, GenericRepository<Post>>();
+            services.AddScoped<IPostServices, PostServices>();
+            services.AddScoped<IGenericRepository<Tag>, GenericRepository<Tag>>();
+            services.AddScoped<ITagServices, TagServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
