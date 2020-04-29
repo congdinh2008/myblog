@@ -1,17 +1,33 @@
-﻿@model IEnumerable<Category>
+﻿@model IEnumerable<Post>
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-<h1>List categories</h1>
-<ul>
+<div class="col-md-9 p-0">
     @foreach (var item in Model)
     {
-        <li>@item.CategoryName</li>
+        <div class="card box-shadow m-3">
+            <div class="card-body row">
+                <div class="col-md-4">
+                    <img src="/images/thumbnails/swimlane-cross-platform.png" class="card-img home-post">
+                </div>
+                <div class="col-md-8">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">@item.Summary</p>
+                </div>
+            </div>
+            <div class="card-footer mt-1 bg-white">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="#" class="btn btn-primary rounded-0">Category<i class="fas fa-angle-right ml-2"></i></a>
+                    </div>
+                    <div class="col-md-8">
+
+                    </div>
+                </div>
+            </div>
+        </div>
     }
-</ul>
+</div>
+
+

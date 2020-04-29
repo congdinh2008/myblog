@@ -1,30 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MyBlog.BusinessLogicLayer.CategoryServices;
+using MyBlog.BusinessLogicLayer.PostServices;
 using MyBlog.Presentation.Models;
+using System.Diagnostics;
 
 namespace MyBlog.Presentation.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ICategoryServices _categoryServices;
+        private readonly IPostServices _postServices;
 
-        public HomeController(ILogger<HomeController> logger, ICategoryServices categoryServices)
+        public HomeController(ILogger<HomeController> logger, IPostServices postServices)
         {
             _logger = logger;
-            _categoryServices = categoryServices;
+            _postServices = postServices;
         }
 
         public IActionResult Index()
         {
-            var categories = _categoryServices.GetAll().Result;
-            return View(categories);
+            var posts = _postServices.GetAll().Result;
+            return View(posts);
         }
 
         public IActionResult Privacy()

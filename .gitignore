@@ -16,3 +16,6 @@
 /MyBlog/MyBlog.BusinessLogicLayer/bin/Debug/netcoreapp3.1
 /MyBlog/MyBlog.DataAccessLayer/bin/Debug/netcoreapp3.1
 /MyBlog/MyBlog.Models/bin/Debug/netcoreapp3.1
+/MyBlog/MyBlog.BusinessLogicLayer/bin/Debug/netcoreapp5.0
+/MyBlog/MyBlog.DataAccessLayer/bin/Debug/netcoreapp5.0
+/MyBlog/MyBlog.Models/bin/Debug/netcoreapp5.0
