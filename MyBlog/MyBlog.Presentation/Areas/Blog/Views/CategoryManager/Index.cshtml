@@ -1,0 +1,152 @@
+﻿@model Paginated<Category>
+
+@{
+    ViewBag.Title = "Category Manager";
+}
+
+<!-- Main content -->
+
+<div class="container-fluid" style="width: 90% !important;">
+    <h3>Project Management</h3>
+    <hr />
+    <section>
+        <div class="heading mt-2 mb-2">
+            <div class="d-flex bd-highlight">
+                <div class="flex-grow-1 bd-highlight">
+                    <a href="#" class="btn btn-primary bg-custom"><i class="fas fa-plus-square"></i> Project</a>
+                </div>
+                <div class="bd-highlight">
+                    <form asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" method="get" class="form-inline">
+                        <div class="form-group">
+                            <input type="text" class="form-control mr-3" id="inputSearch" name="searchString"
+                                   value="@ViewData["CurrentFilter"]" placeholder="Search Category....">
+                            <button type="submit" class=" form-control btn btn-primary bg-custom mr-3">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" class="btn btn-secondary">
+                                <i class="fas fa-undo"></i>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="category-list">
+            <table class="table table-bordered">
+                <thead class="bg-custom text-white rounded">
+                    <tr>
+                        <th scope="col">
+                            <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog"
+                               asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
+                                Category Name
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" asp-route-sortOrder="@ViewData["SlugSortParm"]"
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
+                                Slug
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" asp-route-sortOrder="@ViewData["CreatedDateSortParm"]"
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
+                                Created Date
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" asp-route-sortOrder="@ViewData["ModifiedDateSortParm"]"
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
+                                Modified Date
+                            </a>
+                        </th>
+                        <th scope="col">Manage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in Model)
+                    {
+                        <tr>
+                            <td scope="row">
+                                <a href="/projectdetail.html">@category.CategoryName</a>
+                            </td>
+                            <td>
+                                <a href="/projectdetail.html">@category.Slug</a>
+                            </td>
+                            <td>
+                                <a href="/staffdetail.html">@category.CreatedDate.ToShortDateString()</a>
+                            </td>
+                            <td>
+                                <a href="/staffdetail.html">@category.ModifiedDate.ToShortDateString()</a>
+                            </td>
+                            <td>
+                                <form>
+                                    <a href="/updateproject.html" class="btn btn-primary bg-custom">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button type="submit"
+                                            onclick="return confirm('Are you sure to delete this category?');"
+                                            class="btn btn-danger ">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            ViewBag.PageRange = 3;
+        }
+        <div class="paging mb-3">
+            <nav aria-label="page-navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           asp-route-pageIndex="1" class="btn page-link @prevDisabled">
+                            <i class="fas fa-fast-backward"></i>
+                        </a>
+                    <li class="page-item">
+                        <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           asp-route-pageIndex="@(Model.PageIndex - 1 <= 0 ? 1 : Model.PageIndex - 1)" class="btn page-link @prevDisabled">
+                            <i class="fas fa-backward"></i>
+                        </a>
+                    </li>
+
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        if (i >= Model.PageIndex - ViewBag.PageRange && i <= Model.PageIndex + ViewBag.PageRange)
+                        {
+                            <li class="page-item">
+                                <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog"
+                                   asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                   asp-route-pageIndex="@i" class="btn page-link @(i==Model.PageIndex ? "current" : "")">
+                                    @i
+                                </a>
+                            </li>
+                        }
+                    }
+                    <li class="page-item">
+                        <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           asp-route-pageIndex="@(Model.PageIndex + 1 > Model.TotalPages ? Model.TotalPages : Model.PageIndex + 1)" class="btn page-link @nextDisabled">
+                            <i class="fas fa-forward"></i>
+                        </a>
+                    <li class="page-item">
+                        <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageIndex="@(Model.PageIndex)" class="btn page-link @nextDisabled">
+                            <i class="fas fa-fast-forward"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</div>
+
+<!-- End main content -->

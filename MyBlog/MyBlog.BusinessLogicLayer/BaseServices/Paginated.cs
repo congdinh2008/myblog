@@ -20,6 +20,7 @@ namespace MyBlog.BusinessLogicLayer.BaseServices
         {
             PageIndex = pageIndex;
             TotalPages = (int) Math.Ceiling(count / (double) pageSize);
+            AddRange(entities);
         }
 
         public static async Task<Paginated<TEntity>> CreateAsync(IQueryable<TEntity> query,
