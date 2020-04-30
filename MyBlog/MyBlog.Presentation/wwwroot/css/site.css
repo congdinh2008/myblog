@@ -37,6 +37,11 @@ a {
     border-color: #1861ac;
 }
 
+/*main content*/
+.main-content {
+    width: 90% !important;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -54,8 +59,12 @@ html {
         display: none;
     }
 
-    .dropdown-toggle::after {
+    .dropdown-toggle:after {
         float: right;
+    }
+
+    .main-content {
+        width: 100% !important;
     }
 }
 

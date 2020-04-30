@@ -11,7 +11,7 @@ namespace MyBlog.Models
         public string CommentId { get; set; }
 
         [Required(ErrorMessage = "The {0} must be required")]
-        [StringLength(1024, ErrorMessage = "The {0} must be at least 2 characters long", MinimumLength = 20)]
+        [StringLength(1024, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 20)]
         public string Content { get; set; }
 
         [DefaultValue(false)]

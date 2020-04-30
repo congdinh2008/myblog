@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.BusinessLogicLayer.CategoryServices;
 using MyBlog.Models;
+using MyBlog.Presentation.Areas.Blog.ViewModels;
 
 namespace MyBlog.Presentation.Areas.Blog.Controllers
 {
@@ -78,6 +79,35 @@ namespace MyBlog.Presentation.Areas.Blog.Controllers
             var categories = await _categoryServices.GetAsync(filter: filter, orderBy: orderBy, pageIndex: pageIndex ?? 1, pageSize: pageSize);
 
             return View(categories);
+        }
+
+        public IActionResult Create()
+        {
+            var categoryViewModel = new CategoryViewModel();
+            return View(categoryViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CategoryViewModel categoryViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var category = new Category()
+                {
+                    CategoryId = Guid.NewGuid().ToString(),
+                    CategoryName = categoryViewModel.CategoryName,
+                    Slug = categoryViewModel.Slug,
+                    Content = categoryViewModel.Content,
+                    CreatedDate = DateTime.Now,
+                    ModifiedDate = DateTime.Now
+                };
+                var result = await _categoryServices.AddAsync(category);
+                if (result > 0)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View(categoryViewModel);
         }
     }
 }

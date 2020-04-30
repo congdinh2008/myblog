@@ -13,7 +13,7 @@
       "files": [ "css/bootstrap.min.css", "css/bootstrap.min.css.map", "js/bootstrap.min.js", "js/bootstrap.bundle.min.js", "js/bootstrap.bundle.min.js.map" ]
     },
     {
-      "library": "jquery@3.5.0",
+      "library": "jquery@3.4.1",
       "destination": "wwwroot/lib/jquery/",
       "files": [ "jquery.min.js" ]
     },

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyBlog.Models
+namespace MyBlog.Presentation.Areas.Blog.ViewModels
 {
-    public class Category
+    public class CategoryViewModel
     {
         public string CategoryId { get; set; }
 
@@ -20,13 +18,5 @@ namespace MyBlog.Models
         [Required(ErrorMessage = "The {0} must be required")]
         [StringLength(10000, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 20)]
         public string Content { get; set; }
-
-        [Display(Name = "Created Date")]
-        public DateTime CreatedDate { get; set; }
-
-        [Display(Name = "Modified Date")]
-        public DateTime ModifiedDate { get; set; }
-
-        public virtual ICollection<PostCategory> PostCategories { get; set; }
     }
 }

@@ -6,14 +6,14 @@
 
 <!-- Main content -->
 
-<div class="container-fluid" style="width: 90% !important;">
+<div class="container-fluid">
     <h3>Project Management</h3>
     <hr />
     <section>
         <div class="heading mt-2 mb-2">
             <div class="d-flex bd-highlight">
                 <div class="flex-grow-1 bd-highlight">
-                    <a href="#" class="btn btn-primary bg-custom"><i class="fas fa-plus-square"></i> Project</a>
+                    <a asp-action="Create" asp-controller="CategoryManager" asp-area="Blog" class="btn btn-primary bg-custom"><i class="fas fa-plus-square"></i> Project</a>
                 </div>
                 <div class="bd-highlight">
                     <form asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" method="get" class="form-inline">

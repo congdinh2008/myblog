@@ -11,22 +11,22 @@ namespace MyBlog.Models
         public string PostId { get; set; }
 
         [Required(ErrorMessage = "The {0} must be required")]
-        [StringLength(255, ErrorMessage = "The {0} must be at least 2 characters long", MinimumLength = 10)]
+        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 10)]
         public string Title { get; set; }
 
         [Required(ErrorMessage = "The {0} must be required")]
-        [StringLength(255, ErrorMessage = "The {0} must be at least 2 characters long", MinimumLength = 10)]
+        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 10)]
         public string Slug { get; set; }
 
         [Required(ErrorMessage = "The {0} must be required")]
-        [StringLength(255, ErrorMessage = "The {0} must be at least 2 characters long", MinimumLength = 10)]
+        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 10)]
         public string Summary { get; set; }
 
         [Required(ErrorMessage = "The {0} must be required")]
-        [StringLength(10000, ErrorMessage = "The {0} must be at least 2 characters long", MinimumLength = 20)]
+        [StringLength(10000, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 20)]
         public string Content { get; set; }
 
-        [StringLength(255, ErrorMessage = "The {0} must be at least 2 characters long", MinimumLength = 10)]
+        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 10)]
         [Display(Name = "Thumbnail Url")]
         public string ThumbnailUrl { get; set; }
 
