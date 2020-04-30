@@ -1,15 +1,14 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MyBlog.Presentation.Areas.Blog.ViewModels
 {
-    public class CategoryViewModel
+    public class TagViewModel
     {
         public string Id { get; set; }
 
         [Required(ErrorMessage = "The {0} must be required")]
         [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 3)]
-        [Display(Name = "Category Name")]
+        [Display(Name = "Tag Name")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "The {0} must be required")]

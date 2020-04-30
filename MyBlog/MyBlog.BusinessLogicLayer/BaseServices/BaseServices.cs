@@ -79,6 +79,18 @@ namespace MyBlog.BusinessLogicLayer.BaseServices
             return UnitOfWork.Commit() > 0;
         }
 
+        public async Task<bool> UpdateAsync(TEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            Repository.Update(entity);
+
+            return await UnitOfWork.CommitAsync() > 0;
+        }
+
         public bool Delete(object id)
         {
             var entity = Repository.GetById(id);
@@ -93,6 +105,20 @@ namespace MyBlog.BusinessLogicLayer.BaseServices
             return UnitOfWork.Commit() > 0;
         }
 
+        public async Task<bool> DeleteAsync(object id)
+        {
+            var entity = await Repository.GetByIdAsync(id);
+
+            if (entity == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            Repository.Delete(entity);
+
+            return await UnitOfWork.CommitAsync() > 0;
+        }
+
         public bool DeleteRange(IEnumerable<TEntity> entities)
         {
             if (entities == null)
@@ -103,6 +129,18 @@ namespace MyBlog.BusinessLogicLayer.BaseServices
             Repository.DeleteRange(entities);
 
             return UnitOfWork.Commit() > 0;
+        }
+
+        public async Task<bool> DeleteRangeAsync(IEnumerable<TEntity> entities)
+        {
+            if (entities == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            Repository.DeleteRange(entities);
+
+            return await UnitOfWork.CommitAsync() > 0;
         }
 
         public long Count()

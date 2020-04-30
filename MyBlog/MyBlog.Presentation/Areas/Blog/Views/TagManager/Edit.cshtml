@@ -1,17 +1,19 @@
-﻿@model CategoryViewModel
+﻿@model TagViewModel
 
 @{
-    ViewBag.Title = "Create a new category";
+    ViewBag.Title = "Edit tag: " + Model.Name;
 }
 
+
 <div class="col-md-12">
-    <h1>Create Category</h1>
+    <h1>Edit Tag: @Model.Name</h1>
     <hr />
-    <form asp-action="Create" class="form-horizontal">
+    <form asp-action="Edit" class="form-horizontal">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
         <div class="form-group">
             <label asp-for="Name" class="control-label"></label>
-            <input asp-for="Name" id="Name" class="form-control" />
+            <input asp-for="Name" id="TagName" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -25,7 +27,7 @@
             <span asp-validation-for="Content" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
+            <input type="submit" value="Save" class="btn btn-primary" />
             <a asp-action="Index" class="btn btn-secondary">Back to List</a>
         </div>
     </form>

@@ -18,9 +18,15 @@ namespace MyBlog.BusinessLogicLayer.BaseServices
 
         bool Update(TEntity entity);
 
+        Task<bool> UpdateAsync(TEntity entity);
+
         bool Delete(object id);
 
+        Task<bool> DeleteAsync(object id);
+
         bool DeleteRange(IEnumerable<TEntity> entities);
+
+        Task<bool> DeleteRangeAsync(IEnumerable<TEntity> entities);
 
         long Count();
 

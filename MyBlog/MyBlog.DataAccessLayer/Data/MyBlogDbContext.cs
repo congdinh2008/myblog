@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.Models;
@@ -62,6 +66,55 @@ namespace MyBlog.DataAccessLayer.Data
                 .HasOne(pt => pt.Tag)
                 .WithMany(t => t.PostTags)
                 .HasForeignKey(pt => pt.TagId);
+        }
+
+        public override int SaveChanges()
+        {
+            OnBeforeSaving();
+
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            OnBeforeSaving();
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void OnBeforeSaving()
+        {
+
+            var entries = ChangeTracker
+                .Entries()
+                .Where(e => e.Entity is BaseEntity && (
+                    e.State == EntityState.Added
+                    || e.State == EntityState.Modified));
+
+            foreach (var entityEntry in entries)
+            {
+                switch (entityEntry.State)
+                {
+                    case EntityState.Modified:
+
+                        // Set the modified date to "now"
+                        ((BaseEntity)entityEntry.Entity).ModifiedDate = DateTime.Now;
+
+                        // Mark property as "don't touch"; don't want to update on a Modify operation
+                        entityEntry.Property("CreatedDate").IsModified = false;
+
+                        break;
+
+                    case EntityState.Added:
+
+                        // set both updated &amp; created date to "now"
+                        ((BaseEntity)entityEntry.Entity).CreatedDate = DateTime.Now;
+
+                        ((BaseEntity)entityEntry.Entity).ModifiedDate = DateTime.Now;
+
+                        break;
+                }
+            }
         }
     }
 }

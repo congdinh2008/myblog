@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using MyBlog.BusinessLogicLayer.TagServices;
+using MyBlog.Models;
+using MyBlog.Presentation.Areas.Blog.ViewModels;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using MyBlog.BusinessLogicLayer.CategoryServices;
-using MyBlog.Models;
-using MyBlog.Presentation.Areas.Blog.ViewModels;
 
 namespace MyBlog.Presentation.Areas.Blog.Controllers
 {
     [Area("Blog")]
-    public class CategoryManagerController : Controller
+    public class TagManagerController : Controller
     {
-        private readonly ICategoryServices _categoryServices;
+        private readonly ITagServices _tagServices;
 
-        public CategoryManagerController(ICategoryServices categoryServices)
+        public TagManagerController(ITagServices tagServices)
         {
-            _categoryServices = categoryServices;
+            _tagServices = tagServices;
         }
 
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageIndex = 1, int pageSize = 10)
@@ -40,14 +39,14 @@ namespace MyBlog.Presentation.Areas.Blog.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
-            Expression<Func<Category, bool>> filter = null;
+            Expression<Func<Tag, bool>> filter = null;
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 filter = c => c.Name.Contains(searchString) || c.Slug.Contains(searchString);
             }
 
-            Func<IQueryable<Category>, IOrderedQueryable<Category>> orderBy = null;
+            Func<IQueryable<Tag>, IOrderedQueryable<Tag>> orderBy = null;
 
             switch (sortOrder)
             {
@@ -77,32 +76,32 @@ namespace MyBlog.Presentation.Areas.Blog.Controllers
                     break;
             }
 
-            var categories = await _categoryServices.GetAsync(filter: filter, orderBy: orderBy, pageIndex: pageIndex ?? 1, pageSize: pageSize);
+            var tags = await _tagServices.GetAsync(filter: filter, orderBy: orderBy, pageIndex: pageIndex ?? 1, pageSize: pageSize);
 
-            return View(categories);
+            return View(tags);
         }
 
         public IActionResult Create()
         {
-            var categoryViewModel = new CategoryViewModel();
-            return View(categoryViewModel);
+            var tagViewModel = new TagViewModel();
+            return View(tagViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CategoryViewModel categoryViewModel)
+        public async Task<IActionResult> Create(TagViewModel tagViewModel)
         {
             if (ModelState.IsValid)
             {
-                var category = new Category()
+                var tag = new Tag()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Name = categoryViewModel.Name,
-                    Slug = categoryViewModel.Slug,
-                    Content = categoryViewModel.Content,
+                    Name = tagViewModel.Name,
+                    Slug = tagViewModel.Slug,
+                    Content = tagViewModel.Content,
                 };
                 try
                 {
-                    var result = await _categoryServices.AddAsync(category);
+                    var result = await _tagServices.AddAsync(tag);
                     if (result > 0)
                     {
                         return RedirectToAction(nameof(Index));
@@ -117,7 +116,7 @@ namespace MyBlog.Presentation.Areas.Blog.Controllers
                     return BadRequest();
                 }
             }
-            return View(categoryViewModel);
+            return View(tagViewModel);
         }
 
         public async Task<IActionResult> Edit(string id)
@@ -127,39 +126,39 @@ namespace MyBlog.Presentation.Areas.Blog.Controllers
                 return NotFound();
             }
 
-            var category = await _categoryServices.GetByIdAsync(id);
+            var tag = await _tagServices.GetByIdAsync(id);
 
-            if (category == null)
+            if (tag == null)
             {
                 return NotFound();
             }
 
-            var categoryViewModel = new CategoryViewModel()
+            var tagViewModel = new TagViewModel()
             {
-                Id = category.Id,
-                Slug = category.Slug,
-                Name = category.Name,
-                Content = category.Content,
+                Id = tag.Id,
+                Slug = tag.Slug,
+                Name = tag.Name,
+                Content = tag.Content,
             };
 
-            return View(categoryViewModel);
+            return View(tagViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(CategoryViewModel categoryViewModel)
+        public async Task<IActionResult> Edit(TagViewModel tagViewModel)
         {
             if (ModelState.IsValid)
             {
-                var category = new Category()
+                var tag = new Tag()
                 {
-                    Id = categoryViewModel.Id,
-                    Name = categoryViewModel.Name,
-                    Slug = categoryViewModel.Slug,
-                    Content = categoryViewModel.Content,
+                    Id = tagViewModel.Id,
+                    Name = tagViewModel.Name,
+                    Slug = tagViewModel.Slug,
+                    Content = tagViewModel.Content,
                 };
                 try
                 {
-                    var result = await _categoryServices.UpdateAsync(category);
+                    var result = await _tagServices.UpdateAsync(tag);
                     if (result)
                     {
                         return RedirectToAction(nameof(Index));
@@ -174,7 +173,7 @@ namespace MyBlog.Presentation.Areas.Blog.Controllers
                     return BadRequest();
                 }
             }
-            return View(categoryViewModel);
+            return View(tagViewModel);
         }
 
         [HttpPost]
@@ -187,7 +186,7 @@ namespace MyBlog.Presentation.Areas.Blog.Controllers
 
             try
             {
-                var result = await _categoryServices.DeleteAsync(id);
+                var result = await _tagServices.DeleteAsync(id);
                 if (!result)
                 {
                     return BadRequest();

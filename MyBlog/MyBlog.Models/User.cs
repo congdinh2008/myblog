@@ -35,10 +35,10 @@ namespace MyBlog.Models
         [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 5)]
         public string Address { get; set; }
 
-        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 5)]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 3)]
         public string City { get; set; }
 
-        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 5)]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 3)]
         public string Country { get; set; }
 
         [Display(Name = "Created Date")]

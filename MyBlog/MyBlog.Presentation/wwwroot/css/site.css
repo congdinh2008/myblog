@@ -110,16 +110,6 @@ body {
     max-width: 30px;
 }
 
-/*Top Navigation Bar*/
-.navbar {
-    padding: 0 !important
-}
-
-.dropdown-menu {
-    border-top: 0px !important;
-    border-radius: 0px !important;
-}
-
 .category-intro {
     position: relative;
     padding: 0px !important

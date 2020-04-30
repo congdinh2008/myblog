@@ -1,19 +1,19 @@
-﻿@model Paginated<Category>
+﻿@model Paginated<Tag>
 
 @{
-    ViewBag.Title = "Category Manager";
+    ViewBag.Title = "Tag Manager";
 }
 
 <!-- Main content -->
 
 <div class="container-fluid">
-    <h3>Category Management</h3>
+    <h3>Tag Management</h3>
     <hr />
     <section>
         <div class="heading mt-2 mb-2">
-            <form asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" method="get" class="form-inline">
+            <form asp-action="Index" asp-controller="TagManager" asp-area="Blog" method="get" class="form-inline">
                 <div class="form-group">
-                    <a asp-action="Create" asp-controller="CategoryManager" asp-area="Blog" class="btn btn-primary bg-custom"><i class="fas fa-plus-square"></i> Category</a>
+                    <a asp-action="Create" asp-controller="TagManager" asp-area="Blog" class="btn btn-primary bg-custom"><i class="fas fa-plus-square"></i> Tag</a>
                 </div>
                 <div class="form-group ml-auto d-flex">
                     <select name="pageSize" id="page-size" class="custom-select mr-2">
@@ -26,40 +26,40 @@
                         <option value="100">100</option>
                     </select>
                     <input type="text" class="form-control mr-2" id="inputSearch" name="searchString"
-                           value="@ViewData["CurrentFilter"]" placeholder="Search Category....">
+                           value="@ViewData["CurrentFilter"]" placeholder="Search Tag....">
                     <button type="submit" class=" form-control btn btn-primary bg-custom mr-2">
                         <i class="fas fa-search"></i>
                     </button>
-                    <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" class="btn btn-secondary">
+                    <a asp-action="Index" asp-controller="TagManager" asp-area="Blog" class="btn btn-secondary">
                         <i class="fas fa-undo"></i>
                     </a>
                 </div>
             </form>
         </div>
-        <div class="category-list">
+        <div class="tag-list">
             <table class="table table-bordered">
                 <thead class="bg-custom text-white rounded">
                     <tr>
                         <th scope="col">
-                            <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog"
+                            <a asp-action="Index" asp-controller="TagManager" asp-area="Blog"
                                asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
-                                Category Name
+                                Tag Name
                             </a>
                         </th>
                         <th scope="col">
-                            <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" asp-route-sortOrder="@ViewData["SlugSortParm"]"
+                            <a asp-action="Index" asp-controller="TagManager" asp-area="Blog" asp-route-sortOrder="@ViewData["SlugSortParm"]"
                                asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
                                 Slug
                             </a>
                         </th>
                         <th scope="col" class="d-none d-sm-table-cell">
-                            <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" asp-route-sortOrder="@ViewData["CreatedDateSortParm"]"
+                            <a asp-action="Index" asp-controller="TagManager" asp-area="Blog" asp-route-sortOrder="@ViewData["CreatedDateSortParm"]"
                                asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
                                 Created Date
                             </a>
                         </th>
                         <th scope="col" class="d-none d-sm-table-cell">
-                            <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" asp-route-sortOrder="@ViewData["ModifiedDateSortParm"]"
+                            <a asp-action="Index" asp-controller="TagManager" asp-area="Blog" asp-route-sortOrder="@ViewData["ModifiedDateSortParm"]"
                                asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
                                 Modified Date
                             </a>
@@ -68,33 +68,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var category in Model)
+                    @foreach (var tag in Model)
                     {
                         <tr>
                             <td scope="row">
-                                <a asp-action="Edit" asp-controller="CategoryManager" asp-area="Blog"
-                                   asp-route-id="@category.Id">@category.Name</a>
+                                <a asp-action="Edit" asp-controller="TagManager" asp-area="Blog"
+                                   asp-route-id="@tag.Id">@tag.Name</a>
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-controller="CategoryManager" asp-area="Blog"
-                                   asp-route-id="@category.Id">@category.Slug</a>
+                                <a asp-action="Edit" asp-controller="TagManager" asp-area="Blog"
+                                   asp-route-id="@tag.Id">@tag.Slug</a>
                             </td>
                             <td class="d-none d-sm-table-cell">
-                                <a asp-action="Edit" asp-controller="CategoryManager" asp-area="Blog"
-                                   asp-route-id="@category.Id">@category.CreatedDate.ToShortDateString()</a>
+                                <a asp-action="Edit" asp-controller="TagManager" asp-area="Blog"
+                                   asp-route-id="@tag.Id">@tag.CreatedDate.ToShortDateString()</a>
                             </td>
                             <td class="d-none d-sm-table-cell">
-                                <a asp-action="Edit" asp-controller="CategoryManager" asp-area="Blog"
-                                   asp-route-id="@category.Id">@category.ModifiedDate.ToShortDateString()</a>
+                                <a asp-action="Edit" asp-controller="TagManager" asp-area="Blog"
+                                   asp-route-id="@tag.Id">@tag.ModifiedDate.ToShortDateString()</a>
                             </td>
                             <td>
-                                <form asp-action="Delete" asp-controller="CategoryManager" asp-area="Blog" asp-route-id="@category.Id">
-                                    <a asp-action="Edit" asp-controller="CategoryManager" asp-area="Blog"
-                                       asp-route-id="@category.Id" class="btn btn-primary bg-custom">
+                                <form asp-action="Delete" asp-controller="TagManager" asp-area="Blog" asp-route-id="@tag.Id">
+                                    <a asp-action="Edit" asp-controller="TagManager" asp-area="Blog"
+                                       asp-route-id="@tag.Id" class="btn btn-primary bg-custom">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <button type="submit"
-                                            onclick="return confirm('Are you sure to delete this category?');"
+                                            onclick="return confirm('Are you sure to delete this tag?');"
                                             class="btn btn-danger ">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
@@ -115,13 +115,13 @@
             <nav aria-label="page-navigation">
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
-                        <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog"
+                        <a asp-action="Index" asp-controller="TagManager" asp-area="Blog"
                            asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"
                            asp-route-pageIndex="1" asp-route-pageSize="@ViewData["CurrentPageSize"]" class="btn page-link @prevDisabled">
                             <i class="fas fa-fast-backward"></i>
                         </a>
                     <li class="page-item">
-                        <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog"
+                        <a asp-action="Index" asp-controller="TagManager" asp-area="Blog"
                            asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"
                            asp-route-pageIndex="@(Model.PageIndex - 1 <= 0 ? 1 : Model.PageIndex - 1)" asp-route-pageSize="@ViewData["CurrentPageSize"]"
                            class="btn page-link @prevDisabled">
@@ -134,7 +134,7 @@
                         if (i >= Model.PageIndex - ViewBag.PageRange && i <= Model.PageIndex + ViewBag.PageRange)
                         {
                             <li class="page-item">
-                                <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog"
+                                <a asp-action="Index" asp-controller="TagManager" asp-area="Blog"
                                    asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"
                                    asp-route-pageIndex="@i" asp-route-pageSize="@ViewData["CurrentPageSize"]"
                                    class="btn page-link @(i==Model.PageIndex ? "current" : "")">
@@ -144,14 +144,14 @@
                         }
                     }
                     <li class="page-item">
-                        <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog"
+                        <a asp-action="Index" asp-controller="TagManager" asp-area="Blog"
                            asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"
                            asp-route-pageIndex="@(Model.PageIndex + 1 > Model.TotalPages ? Model.TotalPages : Model.PageIndex + 1)"
                            asp-route-pageSize="@ViewData["CurrentPageSize"]" class="btn page-link @nextDisabled">
                             <i class="fas fa-forward"></i>
                         </a>
                     <li class="page-item">
-                        <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                        <a asp-action="Index" asp-controller="TagManager" asp-area="Blog" asp-route-sortOrder="@ViewData["CurrentSort"]"
                            asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageIndex="@(Model.PageIndex)"
                            asp-route-pageSize="@ViewData["CurrentPageSize"]" class="btn page-link @nextDisabled">
                             <i class="fas fa-fast-forward"></i>

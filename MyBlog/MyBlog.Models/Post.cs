@@ -6,27 +6,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyBlog.Models
 {
-    public class Post
+    public class Post : BaseEntity
     {
-        public string PostId { get; set; }
+        public string Id { get; set; }
 
         [Required(ErrorMessage = "The {0} must be required")]
-        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 10)]
+        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 5)]
         public string Title { get; set; }
 
         [Required(ErrorMessage = "The {0} must be required")]
-        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 10)]
+        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 5)]
         public string Slug { get; set; }
 
         [Required(ErrorMessage = "The {0} must be required")]
-        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 10)]
+        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 20)]
         public string Summary { get; set; }
 
         [Required(ErrorMessage = "The {0} must be required")]
         [StringLength(10000, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 20)]
         public string Content { get; set; }
 
-        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 10)]
+        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 5)]
         [Display(Name = "Thumbnail Url")]
         public string ThumbnailUrl { get; set; }
 
@@ -41,12 +41,6 @@ namespace MyBlog.Models
 
         [Display(Name = "Published Date")]
         public DateTime PublishedDate { get; set; }
-
-        [Display(Name = "Created Date")]
-        public DateTime CreatedDate { get; set; }
-
-        [Display(Name = "Modified Date")]
-        public DateTime ModifiedDate { get; set; }
 
         [ForeignKey("User")]
         public string AuthorId { get; set; }

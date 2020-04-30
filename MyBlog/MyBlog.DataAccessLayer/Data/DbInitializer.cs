@@ -18,7 +18,7 @@ namespace MyBlog.DataAccessLayer.Data
 
         private static void SeedBlogData(MyBlogDbContext context)
         {
-            if (!context.Categories.Any(x => x.CategoryName == "Visual Studio"))
+            if (!context.Categories.Any(x => x.Name == "Visual Studio"))
             {
                 var users = context.Users.ToList();
                 #region Categories
@@ -26,8 +26,8 @@ namespace MyBlog.DataAccessLayer.Data
                 {
                      new Category
                     {
-                        CategoryId = Guid.NewGuid().ToString(),
-                        CategoryName = "Visual Studio",
+                        Id = Guid.NewGuid().ToString(),
+                        Name = "Visual Studio",
                         Slug = "visual-studio",
                         Content = "About Visual Studio",
                         CreatedDate = DateTime.Now,
@@ -35,8 +35,8 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Category
                     {
-                        CategoryId = Guid.NewGuid().ToString(),
-                        CategoryName = ".NET",
+                        Id = Guid.NewGuid().ToString(),
+                        Name = ".NET",
                         Slug = "net",
                         Content = "About .NET",
                         CreatedDate = DateTime.Now,
@@ -44,8 +44,8 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Category
                     {
-                        CategoryId = Guid.NewGuid().ToString(),
-                        CategoryName = "ASP.NET",
+                        Id = Guid.NewGuid().ToString(),
+                        Name = "ASP.NET",
                         Slug = "asp-net",
                         Content = "About ASP.NET",
                         CreatedDate = DateTime.Now,
@@ -53,8 +53,8 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Category
                     {
-                        CategoryId = Guid.NewGuid().ToString(),
-                        CategoryName = "Programming Language",
+                        Id = Guid.NewGuid().ToString(),
+                        Name = "Programming Language",
                         Slug = "programming-language",
                         Content = "About Programming Language",
                         CreatedDate = DateTime.Now,
@@ -69,7 +69,7 @@ namespace MyBlog.DataAccessLayer.Data
                 {
                     new Post()
                     {
-                        PostId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Title = "Visual Studio 2019 for Mac version 8.5 is now available",
                         Slug = "visual-studio-2019-for-mac-version-8-5-is-now-available",
 
@@ -90,7 +90,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Post()
                     {
-                        PostId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Title = "Visual Studio 2019 version 16.6 Preview 2 Brings New Features Your Way",
                         Slug = "visual-studio-2019-version-16-6-preview-2",
 
@@ -111,7 +111,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Post()
                     {
-                        PostId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Title = "Default implementations in interfaces",
                         Slug = "default-implementations-in-interfaces",
 
@@ -130,7 +130,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Post()
                     {
-                        PostId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Title = "Announcing TypeScript 3.9 Beta",
                         Slug = "announcing-typescript-3-9-beta",
 
@@ -149,7 +149,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Post()
                     {
-                        PostId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Title = "Do more with patterns in C# 8.0",
                         Slug = "do-more-with-patterns-in-c-8-0",
 
@@ -169,7 +169,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Post()
                     {
-                        PostId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Title = "Blazor WebAssembly 3.2.0 Preview 4 release now available",
                         Slug = "blazor-webassembly-3-2-0-preview-4-release-now-available",
 
@@ -188,7 +188,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Post()
                     {
-                        PostId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Title = "ASP.NET Core updates in .NET 5 Preview 2",
                         Slug = "asp-net-core-updates-in-net-5-preview-2",
 
@@ -213,8 +213,8 @@ namespace MyBlog.DataAccessLayer.Data
                 {
                     new Tag
                     {
-                        TagId = Guid.NewGuid().ToString(),
-                        TagName = "Visual Studio",
+                        Id = Guid.NewGuid().ToString(),
+                        Name = "Visual Studio",
                         Slug = "visual-studio",
                         Content = "About Visual Studio",
                         CreatedDate = DateTime.Now,
@@ -222,8 +222,8 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Tag
                     {
-                        TagId = Guid.NewGuid().ToString(),
-                        TagName = ".NET",
+                        Id = Guid.NewGuid().ToString(),
+                        Name = ".NET",
                         Slug = "net",
                         Content = "About .NET",
                         CreatedDate = DateTime.Now,
@@ -231,8 +231,8 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Tag
                     {
-                        TagId = Guid.NewGuid().ToString(),
-                        TagName = "ASP.NET",
+                        Id = Guid.NewGuid().ToString(),
+                        Name = "ASP.NET",
                         Slug = "asp-net",
                         Content = "About ASP.NET",
                         CreatedDate = DateTime.Now,
@@ -240,8 +240,8 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Tag
                     {
-                        TagId = Guid.NewGuid().ToString(),
-                        TagName = "Programming Language",
+                        Id = Guid.NewGuid().ToString(),
+                        Name = "Programming Language",
                         Slug = "programming-language",
                         Content = "About Programming Language",
                         CreatedDate = DateTime.Now,
@@ -257,72 +257,72 @@ namespace MyBlog.DataAccessLayer.Data
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="Visual Studio 2019 for Mac version 8.5 is now available"),
-                        Tag = tags.Single(t=>t.TagName=="Visual Studio")
+                        Tag = tags.Single(t=>t.Name=="Visual Studio")
                     },
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="Visual Studio 2019 version 16.6 Preview 2 Brings New Features Your Way"),
-                        Tag = tags.Single(t=>t.TagName=="Visual Studio")
+                        Tag = tags.Single(t=>t.Name=="Visual Studio")
                     },
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="Default implementations in interfaces"),
-                        Tag = tags.Single(t=>t.TagName=="Programming Language")
+                        Tag = tags.Single(t=>t.Name=="Programming Language")
                     },
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="Default implementations in interfaces"),
-                        Tag = tags.Single(t=>t.TagName==".NET")
+                        Tag = tags.Single(t=>t.Name==".NET")
                     },
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="Announcing TypeScript 3.9 Beta"),
-                        Tag = tags.Single(t=>t.TagName=="Visual Studio")
+                        Tag = tags.Single(t=>t.Name=="Visual Studio")
                     },
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="Announcing TypeScript 3.9 Beta"),
-                        Tag = tags.Single(t=>t.TagName=="Programming Language")
+                        Tag = tags.Single(t=>t.Name=="Programming Language")
                     },
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="Do more with patterns in C# 8.0"),
-                        Tag = tags.Single(t=>t.TagName=="Visual Studio")
+                        Tag = tags.Single(t=>t.Name=="Visual Studio")
                     },
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="Do more with patterns in C# 8.0"),
-                        Tag = tags.Single(t=>t.TagName=="Programming Language")
+                        Tag = tags.Single(t=>t.Name=="Programming Language")
                     },
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="Do more with patterns in C# 8.0"),
-                        Tag = tags.Single(t=>t.TagName==".NET")
+                        Tag = tags.Single(t=>t.Name==".NET")
                     },
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="Blazor WebAssembly 3.2.0 Preview 4 release now available"),
-                        Tag = tags.Single(t=>t.TagName=="ASP.NET")
+                        Tag = tags.Single(t=>t.Name=="ASP.NET")
                     },
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="Blazor WebAssembly 3.2.0 Preview 4 release now available"),
-                        Tag = tags.Single(t=>t.TagName==".NET")
+                        Tag = tags.Single(t=>t.Name==".NET")
                     },
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="ASP.NET Core updates in .NET 5 Preview 2"),
-                        Tag = tags.Single(t=>t.TagName=="ASP.NET")
+                        Tag = tags.Single(t=>t.Name=="ASP.NET")
                     },
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="ASP.NET Core updates in .NET 5 Preview 2"),
-                        Tag = tags.Single(t=>t.TagName=="Visual Studio")
+                        Tag = tags.Single(t=>t.Name=="Visual Studio")
                     },
                     new PostTag
                     {
                         Post = posts.Single(p=>p.Title=="ASP.NET Core updates in .NET 5 Preview 2"),
-                        Tag = tags.Single(t=>t.TagName==".NET")
+                        Tag = tags.Single(t=>t.Name==".NET")
                     },
                 };
                 #endregion
@@ -335,72 +335,72 @@ namespace MyBlog.DataAccessLayer.Data
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="Visual Studio 2019 for Mac version 8.5 is now available"),
-                        Category = categories.Single(t=>t.CategoryName=="Visual Studio")
+                        Category = categories.Single(t=>t.Name=="Visual Studio")
                     },
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="Visual Studio 2019 version 16.6 Preview 2 Brings New Features Your Way"),
-                        Category = categories.Single(t=>t.CategoryName=="Visual Studio")
+                        Category = categories.Single(t=>t.Name=="Visual Studio")
                     },
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="Default implementations in interfaces"),
-                        Category = categories.Single(t=>t.CategoryName=="Programming Language")
+                        Category = categories.Single(t=>t.Name=="Programming Language")
                     },
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="Default implementations in interfaces"),
-                        Category = categories.Single(t=>t.CategoryName==".NET")
+                        Category = categories.Single(t=>t.Name==".NET")
                     },
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="Announcing TypeScript 3.9 Beta"),
-                        Category = categories.Single(t=>t.CategoryName=="Visual Studio")
+                        Category = categories.Single(t=>t.Name=="Visual Studio")
                     },
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="Announcing TypeScript 3.9 Beta"),
-                        Category = categories.Single(t=>t.CategoryName=="Programming Language")
+                        Category = categories.Single(t=>t.Name=="Programming Language")
                     },
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="Do more with patterns in C# 8.0"),
-                        Category = categories.Single(t=>t.CategoryName=="Visual Studio")
+                        Category = categories.Single(t=>t.Name=="Visual Studio")
                     },
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="Do more with patterns in C# 8.0"),
-                        Category = categories.Single(t=>t.CategoryName=="Programming Language")
+                        Category = categories.Single(t=>t.Name=="Programming Language")
                     },
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="Do more with patterns in C# 8.0"),
-                        Category = categories.Single(t=>t.CategoryName==".NET")
+                        Category = categories.Single(t=>t.Name==".NET")
                     },
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="Blazor WebAssembly 3.2.0 Preview 4 release now available"),
-                        Category = categories.Single(t=>t.CategoryName=="ASP.NET")
+                        Category = categories.Single(t=>t.Name=="ASP.NET")
                     },
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="Blazor WebAssembly 3.2.0 Preview 4 release now available"),
-                        Category = categories.Single(t=>t.CategoryName==".NET")
+                        Category = categories.Single(t=>t.Name==".NET")
                     },
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="ASP.NET Core updates in .NET 5 Preview 2"),
-                        Category = categories.Single(t=>t.CategoryName=="ASP.NET")
+                        Category = categories.Single(t=>t.Name=="ASP.NET")
                     },
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="ASP.NET Core updates in .NET 5 Preview 2"),
-                        Category = categories.Single(t=>t.CategoryName=="Visual Studio")
+                        Category = categories.Single(t=>t.Name=="Visual Studio")
                     },
                     new PostCategory
                     {
                         Post = posts.Single(p=>p.Title=="ASP.NET Core updates in .NET 5 Preview 2"),
-                        Category = categories.Single(t=>t.CategoryName==".NET")
+                        Category = categories.Single(t=>t.Name==".NET")
                     }
                 };
 
@@ -413,7 +413,7 @@ namespace MyBlog.DataAccessLayer.Data
                     #region Post 1
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = ".NET 5 will be awesome!",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -424,7 +424,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "The added messagebox if .NET Core runtime is missing on non self-containd applications is my personal highlight of the .NET Core 3.1 release. I’ve been waiting for this since .NET Core 3.0 before I ship out my ported applications. Thank you so much for adding this!",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -435,7 +435,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "Will file stream for SQL server be available in asp.net core in .net 5???",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -449,7 +449,7 @@ namespace MyBlog.DataAccessLayer.Data
                     #region Post 2
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = ".NET 5 will be awesome!",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -460,7 +460,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "What happens with Mono after .NET 5?",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -471,7 +471,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "Will file stream for SQL server be available in asp.net core in .net 5???",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -482,7 +482,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "Will file stream for SQL server be available in asp.net core in .net 5???",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -496,7 +496,7 @@ namespace MyBlog.DataAccessLayer.Data
                     #region Post 3
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = ".NET 5 will be awesome!",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -507,7 +507,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "What happens with Mono after .NET 5?",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -518,7 +518,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "Will file stream for SQL server be available in asp.net core in .net 5???",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -529,7 +529,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "Will file stream for SQL server be available in asp.net core in .net 5???",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -543,7 +543,7 @@ namespace MyBlog.DataAccessLayer.Data
                     #region Post 4
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = ".NET 5 will be awesome!",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -554,7 +554,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "What happens with Mono after .NET 5?",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -568,7 +568,7 @@ namespace MyBlog.DataAccessLayer.Data
                     #region Post 5
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = ".NET 5 will be awesome!",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -579,7 +579,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "What happens with Mono after .NET 5?",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -593,7 +593,7 @@ namespace MyBlog.DataAccessLayer.Data
                     #region Post 6
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = ".NET 5 will be awesome!",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -604,7 +604,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "What happens with Mono after .NET 5?",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -615,7 +615,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "Will file stream for SQL server be available in asp.net core in .net 5???",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -626,7 +626,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "Will file stream for SQL server be available in asp.net core in .net 5???",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -640,7 +640,7 @@ namespace MyBlog.DataAccessLayer.Data
                     #region Post 7
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = ".NET 5 will be awesome!",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -651,7 +651,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "What happens with Mono after .NET 5?",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -662,7 +662,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "Will file stream for SQL server be available in asp.net core in .net 5???",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -673,7 +673,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "Will file stream for SQL server be available in asp.net core in .net 5???",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -684,7 +684,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "Will file stream for SQL server be available in asp.net core in .net 5???",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
@@ -695,7 +695,7 @@ namespace MyBlog.DataAccessLayer.Data
                     },
                     new Comment
                     {
-                        CommentId = Guid.NewGuid().ToString(),
+                        Id = Guid.NewGuid().ToString(),
                         Content = "Will file stream for SQL server be available in asp.net core in .net 5???",
                         Approved = true,
                         ApprovedDate = DateTime.Now,
