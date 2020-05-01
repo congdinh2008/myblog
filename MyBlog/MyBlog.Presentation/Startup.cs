@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyBlog.BusinessLogicLayer.CategoryServices;
+using MyBlog.BusinessLogicLayer.CommentServices;
 using MyBlog.BusinessLogicLayer.PostServices;
 using MyBlog.BusinessLogicLayer.TagServices;
 using MyBlog.DataAccessLayer.Data;
@@ -45,6 +46,8 @@ namespace MyBlog.Presentation
             services.AddScoped<IPostServices, PostServices>();
             services.AddScoped<IGenericRepository<Tag>, GenericRepository<Tag>>();
             services.AddScoped<ITagServices, TagServices>();
+            services.AddScoped<IGenericRepository<Comment>, GenericRepository<Comment>>();
+            services.AddScoped<ICommentServices, CommentServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

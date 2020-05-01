@@ -1,0 +1,183 @@
+﻿@model Paginated<Comment>
+
+@{
+    ViewBag.Title = "Comment Manager";
+}
+
+<!-- Main content -->
+
+<div class="container-fluid">
+    <h3>Comment Management</h3>
+    <hr />
+    <section>
+        <div class="heading mt-2 mb-2">
+            <form asp-action="Index" asp-controller="CommentManager" asp-area="Blog" method="get" class="form-inline">
+                <div class="form-group ml-auto d-flex">
+                    <select name="pageSize" id="page-size" class="custom-select mr-2">
+                        <option value="2">2</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <input type="text" class="form-control mr-2" id="inputSearch" name="searchString"
+                           value="@ViewData["CurrentFilter"]" placeholder="Search Comment....">
+                    <button type="submit" class=" form-control btn btn-primary bg-custom mr-2">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <a asp-action="Index" asp-controller="CommentManager" asp-area="Blog" class="btn btn-secondary">
+                        <i class="fas fa-undo"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+        <div class="category-list">
+            <table class="table table-bordered">
+                <thead class="bg-custom text-white rounded">
+                    <tr>
+                        <th scope="col">
+                            <a asp-action="Index" asp-controller="CommentManager" asp-area="Blog"
+                               asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
+                                Content
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a asp-action="Index" asp-controller="CommentManager" asp-area="Blog" asp-route-sortOrder="@ViewData["UsernameSortParm"]"
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
+                                Username
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a asp-action="Index" asp-controller="CommentManager" asp-area="Blog" asp-route-sortOrder="@ViewData["PostTitleSortParm"]"
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
+                                Post Title
+                            </a>
+                        </th>
+                        <th scope="col" class="d-none d-sm-table-cell">
+                            <a asp-action="Index" asp-controller="CommentManager" asp-area="Blog" asp-route-sortOrder="@ViewData["CreatedDateSortParm"]"
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
+                                Approved
+                            </a>
+                        </th>
+                        <th scope="col" class="d-none d-sm-table-cell">
+                            <a asp-action="Index" asp-controller="CommentManager" asp-area="Blog" asp-route-sortOrder="@ViewData["ModifiedDateSortParm"]"
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
+                                Approved Date
+                            </a>
+                        </th>
+                        <th scope="col">Manage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var comment in Model)
+                    {
+                        <tr>
+                            <td scope="row">
+                                <a href="#">@comment.Content</a>
+                            </td>
+                            <td>
+                                <a href="#">@comment.User.UserName</a>
+                            </td>
+                            <td>
+                                <a href="#">@comment.Post.Title</a>
+                            </td>
+                            <td class="d-none d-sm-table-cell">
+                                <a href="#">@comment.Approved</a>
+                            </td>
+                            <td class="d-none d-sm-table-cell">
+                                <a href="#">@comment.ApprovedDate.ToShortDateString()</a>
+                            </td>
+                            <td>
+                                <form asp-action="Delete" asp-controller="CommentManager" asp-area="Blog" asp-route-id="@comment.Id" method="post">
+                                    <button type="submit"
+                                            onclick="return confirm('Are you sure to' + @(comment.Approved? "unapproved": "approved") + 'this comment?');"
+                                            class="btn btn-danger" formaction="@Url.Action("Approve", "CommentManager", new{ id = comment.Id })">
+                                        @if (comment.Approved)
+                                        {
+                                            <i class="fas fa-ban"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="far fa-check-square"></i>
+                                        }
+                                    </button>
+                                    <button type="submit"
+                                            onclick="return confirm('Are you sure to delete this comment?');"
+                                            class="btn btn-danger">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            ViewBag.PageRange = 3;
+        }
+        <div class="paging mb-3">
+            <nav aria-label="page-navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a asp-action="Index" asp-controller="CommentManager" asp-area="Blog"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           asp-route-pageIndex="1" asp-route-pageSize="@ViewData["CurrentPageSize"]" class="btn page-link @prevDisabled">
+                            <i class="fas fa-fast-backward"></i>
+                        </a>
+                    <li class="page-item">
+                        <a asp-action="Index" asp-controller="CommentManager" asp-area="Blog"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           asp-route-pageIndex="@(Model.PageIndex - 1 <= 0 ? 1 : Model.PageIndex - 1)" asp-route-pageSize="@ViewData["CurrentPageSize"]"
+                           class="btn page-link @prevDisabled">
+                            <i class="fas fa-backward"></i>
+                        </a>
+                    </li>
+
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        if (i >= Model.PageIndex - ViewBag.PageRange && i <= Model.PageIndex + ViewBag.PageRange)
+                        {
+                            <li class="page-item">
+                                <a asp-action="Index" asp-controller="CommentManager" asp-area="Blog"
+                                   asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                   asp-route-pageIndex="@i" asp-route-pageSize="@ViewData["CurrentPageSize"]"
+                                   class="btn page-link @(i==Model.PageIndex ? "current" : "")">
+                                    @i
+                                </a>
+                            </li>
+                        }
+                    }
+                    <li class="page-item">
+                        <a asp-action="Index" asp-controller="CommentManager" asp-area="Blog"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           asp-route-pageIndex="@(Model.PageIndex + 1 > Model.TotalPages ? Model.TotalPages : Model.PageIndex + 1)"
+                           asp-route-pageSize="@ViewData["CurrentPageSize"]" class="btn page-link @nextDisabled">
+                            <i class="fas fa-forward"></i>
+                        </a>
+                    <li class="page-item">
+                        <a asp-action="Index" asp-controller="CommentManager" asp-area="Blog" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageIndex="@(Model.PageIndex)"
+                           asp-route-pageSize="@ViewData["CurrentPageSize"]" class="btn page-link @nextDisabled">
+                            <i class="fas fa-fast-forward"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</div>
+
+<!-- End main content -->
+
+@section Scripts {
+    <script>
+        var currentPageSize = @ViewData["CurrentPageSize"];
+        $('#page-size').val(currentPageSize);
+    </script>
+}

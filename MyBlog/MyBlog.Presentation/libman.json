@@ -5,7 +5,7 @@
     {
       "library": "font-awesome@5.13.0",
       "destination": "wwwroot/lib/font-awesome",
-      "files": [ "css/all.css", "js/all.js", "js/fontawesome.js", "webfonts/fa-solid-900.woff2", "webfonts/fa-solid-900.woff", "webfonts/fa-solid-900.ttf" ]
+      "files": [ "css/all.css", "js/all.js", "js/fontawesome.js", "webfonts/fa-solid-900.woff2", "webfonts/fa-solid-900.woff", "webfonts/fa-solid-900.ttf", "webfonts/fa-regular-400.ttf", "webfonts/fa-regular-400.woff2" ]
     },
     {
       "library": "twitter-bootstrap@4.4.0",

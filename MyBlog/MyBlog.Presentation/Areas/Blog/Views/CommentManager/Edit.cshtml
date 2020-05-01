@@ -1,0 +1,40 @@
+﻿@model CategoryViewModel
+
+@{
+    ViewBag.Title = "Edit category: " + Model.Name;
+}
+
+
+<div class="col-md-12">
+    <h1>Edit Category: @Model.Name</h1>
+    <hr />
+    <form asp-action="Edit" class="form-horizontal">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" id="CategoryName" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Slug" class="control-label"></label>
+            <input asp-for="Slug" id="Slug" class="form-control" readonly="readonly" />
+            <span asp-validation-for="Slug" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Content" class="control-label"></label>
+            <input asp-for="Content" id="Content" class="form-control" />
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/generateSlug.js"></script>
+}
