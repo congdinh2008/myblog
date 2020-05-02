@@ -203,5 +203,36 @@ namespace MyBlog.Presentation.Areas.Blog.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteAll([FromBody] object[] selectedItems)
+        {
+            if (selectedItems == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                var result = await _tagServices.DeleteRangeAsync(selectedItems);
+                if (!result)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    return Json(result);
+                }
+            }
+            catch (NullReferenceException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
     }
 }

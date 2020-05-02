@@ -13,11 +13,11 @@
         <div class="heading mt-2 mb-2">
             <form asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" method="get" class="form-inline">
                 <div class="form-group">
-                    <a asp-action="Create" asp-controller="CategoryManager" asp-area="Blog" class="btn btn-primary bg-custom"><i class="fas fa-plus-square"></i> Category</a>
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-danger" onclick="deleteAll();"><i class="far fa-trash-alt"></i> Tag</button>
                 </div>
                 <div class="form-group ml-auto d-flex">
                     <select name="pageSize" id="page-size" class="custom-select mr-2">
-                        <option value="2">2</option>
                         <option value="10">10</option>
                         <option value="15">15</option>
                         <option value="20">20</option>
@@ -41,26 +41,29 @@
                 <thead class="bg-custom text-white rounded">
                     <tr>
                         <th scope="col">
-                            <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog"
-                               asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
+                            <input type="checkbox" id="selected-all" />
+                        </th>
+                        <th scope="col">
+                            <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" asp-route-sortOrder="@ViewData["NameSortParm"]"
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageSize="@ViewData["CurrentPageSize"]" class="text-white">
                                 Category Name
                             </a>
                         </th>
                         <th scope="col">
                             <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" asp-route-sortOrder="@ViewData["SlugSortParm"]"
-                               asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageSize="@ViewData["CurrentPageSize"]" class="text-white">
                                 Slug
                             </a>
                         </th>
                         <th scope="col" class="d-none d-sm-table-cell">
                             <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" asp-route-sortOrder="@ViewData["CreatedDateSortParm"]"
-                               asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageSize="@ViewData["CurrentPageSize"]" class="text-white">
                                 Created Date
                             </a>
                         </th>
                         <th scope="col" class="d-none d-sm-table-cell">
                             <a asp-action="Index" asp-controller="CategoryManager" asp-area="Blog" asp-route-sortOrder="@ViewData["ModifiedDateSortParm"]"
-                               asp-route-currentFilter="@ViewData["CurrentFilter"]" class="text-white">
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageSize="@ViewData["CurrentPageSize"]" class="text-white">
                                 Modified Date
                             </a>
                         </th>
@@ -71,6 +74,9 @@
                     @foreach (var category in Model)
                     {
                         <tr>
+                            <td>
+                                <input type="checkbox" name="selectedItems" class="selected-items" value="@category.Id" />
+                            </td>
                             <td scope="row">
                                 <a asp-action="Edit" asp-controller="CategoryManager" asp-area="Blog"
                                    asp-route-id="@category.Id">@category.Name</a>
@@ -169,5 +175,43 @@
     <script>
         var currentPageSize = @ViewData["CurrentPageSize"];
         $('#page-size').val(currentPageSize);
+
+        $('#selected-all').change(function() {
+            $('input:checkbox[class=selected-items]').prop('checked', this.checked);
+        });
+
+        function deleteAll() {
+            var token = $('input[type=hidden][name=__RequestVerificationToken]', document).val();
+            var selectedItems = new Array();
+
+            $('.selected-items:checkbox:checked').each(function() {
+                selectedItems.push($(this).val());
+            });
+
+            $.ajax({
+                url: "@Url.Action("DeleteAll", "CategoryManager")",
+                type: "POST",
+                data: JSON.stringify(selectedItems),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                headers: { 'RequestVerificationToken': token },
+                success: function (result) {
+                    console.log(result);
+                    $.each(selectedItems, function (key, value) {
+                        console.log(value);
+                        $('input:checkbox[class=selected-items]').each(function () {
+                            console.log($(this));
+                            if ($(this).val() == value) {
+                                $(this).parent().parent().remove();
+                            };
+                        })
+
+                    });
+                },
+                error: function(errorMessage) {
+                    alert(errorMessage.responseText);
+                }
+            });
+        }
     </script>
 }

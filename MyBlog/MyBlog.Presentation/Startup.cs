@@ -50,6 +50,8 @@ namespace MyBlog.Presentation
             services.AddScoped<ITagServices, TagServices>();
             services.AddScoped<IGenericRepository<Comment>, GenericRepository<Comment>>();
             services.AddScoped<ICommentServices, CommentServices>();
+
+            services.AddAntiforgery(o => o.HeaderName = "RequestVerificationToken");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

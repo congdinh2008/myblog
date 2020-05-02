@@ -154,6 +154,7 @@ namespace MyBlog.Presentation.Areas.Blog.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteAll([FromBody] object[] selectedItems)
         {
             if (selectedItems == null)
