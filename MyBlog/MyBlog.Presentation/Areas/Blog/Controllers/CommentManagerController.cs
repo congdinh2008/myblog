@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyBlog.BusinessLogicLayer.CommentServices;
 using MyBlog.Models;
-using MyBlog.Presentation.Areas.Blog.ViewModels;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -99,7 +98,7 @@ namespace MyBlog.Presentation.Areas.Blog.Controllers
             }
 
             var comment = await _commentServices.GetByIdAsync(id);
-            
+
             if (comment == null)
             {
                 return NotFound();
@@ -122,7 +121,7 @@ namespace MyBlog.Presentation.Areas.Blog.Controllers
             {
                 return BadRequest();
             }
-            
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -152,6 +151,37 @@ namespace MyBlog.Presentation.Areas.Blog.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteAll([FromBody] object[] selectedItems)
+        {
+            if (selectedItems == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                var x = selectedItems[0].ToString();
+                var result = await _commentServices.DeleteRangeAsync(selectedItems);
+                if (!result)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    return Json(result);
+                }
+            }
+            catch (NullReferenceException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
     }
 }

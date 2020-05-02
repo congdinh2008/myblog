@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace MyBlog.BusinessLogicLayer.BaseServices
 {
@@ -19,7 +19,7 @@ namespace MyBlog.BusinessLogicLayer.BaseServices
         public Paginated(List<TEntity> entities, long count, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;
-            TotalPages = (int) Math.Ceiling(count / (double) pageSize);
+            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
             AddRange(entities);
         }
 

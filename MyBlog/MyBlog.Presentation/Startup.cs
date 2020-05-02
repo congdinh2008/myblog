@@ -39,6 +39,8 @@ namespace MyBlog.Presentation
 
             services.AddRazorPages();
 
+            services.AddControllers().AddNewtonsoftJson();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IGenericRepository<Category>, GenericRepository<Category>>();
             services.AddScoped<ICategoryServices, CategoryServices>();
@@ -84,7 +86,7 @@ namespace MyBlog.Presentation
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                
+
                 endpoints.MapRazorPages();
             });
 

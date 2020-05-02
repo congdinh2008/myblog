@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using MyBlog.DataAccessLayer.Data;
+﻿using MyBlog.DataAccessLayer.Data;
+using System.Threading.Tasks;
 
 namespace MyBlog.DataAccessLayer.Infrastructure
 {
-    public class UnitOfWork: IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly MyBlogDbContext _context;
 

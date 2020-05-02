@@ -119,6 +119,50 @@ namespace MyBlog.BusinessLogicLayer.BaseServices
             return await UnitOfWork.CommitAsync() > 0;
         }
 
+        public bool DeleteRange(object[] ids)
+        {
+            if (ids == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            foreach (var id in ids)
+            {
+                if (id != null)
+                {
+                    var entity = Repository.GetById(id);
+                    if (entity != null)
+                    {
+                        Repository.Delete(entity);
+                    }
+                }
+            }
+
+            return UnitOfWork.Commit() > 0;
+        }
+
+        public async Task<bool> DeleteRangeAsync(object[] ids)
+        {
+            if (ids == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            foreach (var id in ids)
+            {
+                if (id != null)
+                {
+                    var entity = await Repository.GetByIdAsync(id);
+                    if (entity != null)
+                    {
+                        Repository.Delete(entity);
+                    }
+                }
+            }
+
+            return await UnitOfWork.CommitAsync() > 0;
+        }
+
         public bool DeleteRange(IEnumerable<TEntity> entities)
         {
             if (entities == null)

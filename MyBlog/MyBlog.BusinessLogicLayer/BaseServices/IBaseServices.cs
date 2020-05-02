@@ -24,6 +24,10 @@ namespace MyBlog.BusinessLogicLayer.BaseServices
 
         Task<bool> DeleteAsync(object id);
 
+        bool DeleteRange(object[] ids);
+
+        Task<bool> DeleteRangeAsync(object[] ids);
+
         bool DeleteRange(IEnumerable<TEntity> entities);
 
         Task<bool> DeleteRangeAsync(IEnumerable<TEntity> entities);
