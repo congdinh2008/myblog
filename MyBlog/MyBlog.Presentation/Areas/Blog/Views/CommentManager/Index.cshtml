@@ -14,7 +14,7 @@
             <form asp-action="Index" asp-controller="CommentManager" asp-area="Blog" method="get" class="form-inline">
                 <div class="form-group">
                     @Html.AntiForgeryToken()
-                    <button type="button" class="btn btn-danger" onclick="deleteAll();"><i class="far fa-trash-alt"></i> Comment</button>
+                    <button type="button" class="btn btn-danger" id="delete-all" onclick="deleteAll();"><i class="far fa-trash-alt"></i> Comment</button>
                 </div>
                 <div class="form-group ml-auto d-flex">
                     <select name="pageSize" id="page-size" class="custom-select mr-2">
@@ -44,7 +44,7 @@
                             <input type="checkbox" id="selected-all" />
                         </th>
                         <th scope="col">
-                            <a asp-action="Index" asp-controller="CommentManager" asp-area="Blog" asp-route-sortOrder="@ViewData["NameSortParm"]" 
+                            <a asp-action="Index" asp-controller="CommentManager" asp-area="Blog" asp-route-sortOrder="@ViewData["NameSortParm"]"
                                asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageSize="@ViewData["CurrentPageSize"]" class="text-white">
                                 Content
                             </a>
@@ -187,13 +187,26 @@
 
 @section Scripts {
     <script>
+        // Start - Page size
         var currentPageSize = @ViewData["CurrentPageSize"];
         $('#page-size').val(currentPageSize);
+        // End - Page size
 
+        // Start - Select all checkboxes
         $('#selected-all').change(function() {
             $('input:checkbox[class=selected-items]').prop('checked', this.checked);
         });
+        // End - Select all checkboxes
 
+        // Start - Enable and disable button
+        var checkBoxes = $('tbody .selected-items, th #selected-all');
+        checkBoxes.change(function () {
+            $('#delete-all').prop('disabled', checkBoxes.filter(':checked').length < 1);
+        });
+        checkBoxes.change();
+        // End - Enable and disable button
+
+        // Start - Function delete all
         function deleteAll() {
             var token = $('input[type=hidden][name=__RequestVerificationToken]', document).val();
             var selectedItems = new Array();
@@ -219,7 +232,7 @@
                                 $(this).parent().parent().remove();
                             };
                         })
-
+                        $('#delete-all').prop('disabled', true);
                     });
                 },
                 error: function(errorMessage) {
@@ -227,5 +240,6 @@
                 }
             });
         }
+        // End - Function delete all
     </script>
 }

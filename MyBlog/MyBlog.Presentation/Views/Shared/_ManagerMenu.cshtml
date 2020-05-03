@@ -1,0 +1,16 @@
+﻿@if (User.Identity.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Manager")))
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Blog Manager
+        </a>
+        <div class="dropdown-menu border-top-0 rounded-0" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#">Dashboard Manager</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" asp-action="Index" asp-controller="CategoryManager" asp-area="Blog">Category Manager</a>
+            <a class="dropdown-item" asp-action="Index" asp-controller="TagManager" asp-area="Blog">Tag Manager</a>
+            <a class="dropdown-item" asp-action="Index" asp-controller="PostManager" asp-area="Blog">Post Manager</a>
+            <a class="dropdown-item" asp-action="Index" asp-controller="CommentManager" asp-area="Blog">Comment Manager</a>
+        </div>
+    </li>
+}

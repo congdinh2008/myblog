@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyBlog.BusinessLogicLayer.CategoryServices;
 using MyBlog.Models;
 using MyBlog.Presentation.Areas.Blog.ViewModels;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace MyBlog.Presentation.Areas.Blog.Controllers
 {
     [Area("Blog")]
+    [Authorize(Roles ="Administrator, Manager")]
     public class CategoryManagerController : Controller
     {
         private readonly ICategoryServices _categoryServices;
