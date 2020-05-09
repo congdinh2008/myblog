@@ -6,27 +6,7 @@
 <div class="col-md-9 p-0">
     @foreach (var item in Model)
     {
-        <div class="card box-shadow m-3">
-            <div class="card-body row">
-                <div class="col-md-4">
-                    <img src="/images/thumbnails/swimlane-cross-platform.png" class="card-img home-post">
-                </div>
-                <div class="col-md-8">
-                    <h5 class="card-title">@item.Title</h5>
-                    <p class="card-text">@item.Summary</p>
-                </div>
-            </div>
-            <div class="card-footer mt-1 bg-white">
-                <div class="row">
-                    <div class="col-md-4">
-                        <a href="#" class="btn btn-primary rounded-0">Category<i class="fas fa-angle-right ml-2"></i></a>
-                    </div>
-                    <div class="col-md-8">
-
-                    </div>
-                </div>
-            </div>
-        </div>
+        <partial name="_PostOverview" model="@item"/>
     }
 </div>
 

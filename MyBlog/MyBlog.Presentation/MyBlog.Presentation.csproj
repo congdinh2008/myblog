@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Blog\Data\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>
